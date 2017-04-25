@@ -1,0 +1,23 @@
+version: '2'
+services:
+  web-server:
+    build: .
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+    volumes:
+      - ./src:/usr/src/app
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+    command: ['npm', 'run-script', 'start:dev']
+  nginx:
+    build: ./nginx
+    depends_on:
+      - web-server
+    links:
+      - web-server:web-server
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
