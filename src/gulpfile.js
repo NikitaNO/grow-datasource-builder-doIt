@@ -23,8 +23,5 @@ gulp.task('start:dev', done => {
       setTimeout(() => done(), 100);
       started = true;
     }
-  })
-  .on('restart', (obj) => {
-    console.log('restarting ..', obj);
   });
 });
