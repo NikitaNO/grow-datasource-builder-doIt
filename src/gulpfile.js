@@ -12,9 +12,10 @@ gulp.task('start:dev', done => {
   nodemon({
     script: path.join(__dirname, 'index.js'),
     ext: 'js json',
-    nodeArgs: ['--inspect=0.0.0.0:9229'],
+    nodeArgs: ['--debug=0.0.0.0:9229'],
     watch: path.join(__dirname, 'express'),
-    legacyWatch: true
+    legacyWatch: true,
+    delay: 2000
   })
   .on('start', () => {
     // to avoid nodemon being started multiple times
