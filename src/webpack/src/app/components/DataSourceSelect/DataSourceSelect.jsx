@@ -14,6 +14,7 @@ export default class DataSourceSelect extends Component {
   handleChange(e) {
     e.preventDefault();
     this.dataSourceStore.selectedDataSource = e.target.value;
+    this.dataSourceStore.getAuths();
   }
   render() {
     const { dataSources } = this.dataSourceStore;

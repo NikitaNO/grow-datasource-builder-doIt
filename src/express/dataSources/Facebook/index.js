@@ -73,9 +73,10 @@ function _getData(config) {
         return _.find(config.report.params.selectedPages, { id: page.id });
       });
     }
+    config.report.params.selectedPages = pages;
     return BPromise.map(pages, page => {
       return new BPromise((resolve, reject) => {
-        reports[config.report.type].getData(config, page)
+        reports[config.report.type || 'insights'].getData(config, page)
         .then(results => {
           resolve(results);
         })

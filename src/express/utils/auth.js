@@ -12,16 +12,25 @@ if (!fs.existsSync(authJsonPath)) {
 module.exports = {
   create(data) {
     data.id = uuidV4();
-    let auths = fs.readFileSync(authJsonPath);
-    auths = JSON.parse(auths);
+    const auths = readFile();
     auths.push(data);
     fs.writeFileSync(authJsonPath, JSON.stringify(auths, null, 2));
   },
   findByDataSourceName(dataSourceName) {
-    let auths = fs.readFileSync(authJsonPath);
-    auths = JSON.parse(auths);
-    return _.find(auths, auth => {
-      return auth.dataSourceName === dataSourceName;
-    });
+    const auths = readFile();
+    return _.reduce(auths, (foundAuths, auth) => {
+      if (auth.dataSourceName === dataSourceName) {
+        foundAuths.push(auth);
+      }
+      return foundAuths;
+    }, []);
+  },
+  findById(id) {
+    const auths = readFile();
+    return _.find(auths, { id });
   }
+}
+
+function readFile() {
+  return JSON.parse(fs.readFileSync(authJsonPath));
 }

@@ -1,5 +1,6 @@
 const dataSources = require('../../dataSources');
 const _ = require('lodash');
+const authUtil = require('../auth');
 
 module.exports = {
   run: _run
@@ -13,10 +14,10 @@ async function _run(dataSourceName, params) {
   if (!dataSource.getData) {
     throw new Error(`Datasource ${dataSourceName} getData is not defined`);
   }
+  const authParams = authUtil.findById(_.get(params, 'authId'));
   const config = {
     auth: {
-      params: {
-      }
+      params: authParams
     },
     report: {
       params: _.get(params, 'reportParams', {})

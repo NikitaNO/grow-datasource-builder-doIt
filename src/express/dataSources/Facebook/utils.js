@@ -32,7 +32,7 @@ module.exports = {
   setupOptions: function (config, startEndObj) {
 
     var options = {
-      period: config.report.params.period
+      period: _.get(config, 'report.params.period', 'day')
     };
 
     if (startEndObj.until) {

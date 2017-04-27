@@ -1,3 +1,4 @@
+import map from 'lodash/map';
 import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import styles from './styles.scss';
@@ -19,7 +20,7 @@ export default class AuthSelect extends Component {
       if (child.closed && running) {
         running = false;
         clearInterval(timer);
-        //scope.getAuths(true);
+        this.dataSourceStore.getAuths();
       } else if (!running) {
         clearInterval(timer);
       }
@@ -33,10 +34,19 @@ export default class AuthSelect extends Component {
     if (!this.dataSourceStore.selectedDataSource) {
       return <div></div>;
     }
+    const { auths } = this.dataSourceStore;
+    const authList = map(auths, auth => {
+      return (
+        <option key={auth.id} value={auth.id}>
+          {auth.name}
+        </option>
+      );
+    });
     return (
       <div className={styles.container}>
         <select onChange={this.handleChange}>
           <option>Select Auth</option>
+          {authList}
         </select>
         <button onClick={(e) => this.handleClick(e)}>New</button>
       </div>

@@ -14,8 +14,10 @@ module.exports = {
 
   getData: function (config, page) {
     
+    const insight = _.get(config, 'report.params.name', 'page_fan_adds');
+
     FB.setAccessToken(page.access_token);
-    let urlStr = `/v2.5/${page.id}/insights/${config.report.params.name}`;
+    let urlStr = `/v2.5/${page.id}/insights/${insight}`;
 
     return new BPromise((resolve, reject) => {
 

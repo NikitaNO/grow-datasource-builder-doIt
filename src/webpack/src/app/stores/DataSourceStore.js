@@ -5,6 +5,7 @@ class DataSourceStore {
 
   @observable dataSources;
   @observable selectedDataSource;
+  @observable auths;
   @observable selectedAuth;
   @observable data;
   @observable isGettingData = false;
@@ -23,6 +24,7 @@ class DataSourceStore {
     this.isGettingData = true;
     const data = {
       params: {
+        authId: this.selectedAuth, 
         reportParams: this.reportParams
       }
     }
@@ -36,6 +38,17 @@ class DataSourceStore {
         this.lastError = err.body.message;
         this.isGettingData = false;
         this.data = null;
+      }));
+  }
+
+  @action
+  getAuths() {
+    api.get(`/dataSources/${this.selectedDataSource}/getAuths`)
+      .then(action(res => {
+        this.auths = res;
+      }))
+      .catch(action(err => {
+        this.auths = null;
       }));
   }
 }
