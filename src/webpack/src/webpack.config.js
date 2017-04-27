@@ -9,7 +9,7 @@ module.exports = {
     ],
     bundle: [
       'react-hot-loader/patch',
-      'webpack-hot-middleware/client?noInfo=false&path=http://0.0.0.0:3000/__webpack_hmr',
+      'webpack-hot-middleware/client?noInfo=false&path=http://127.0.0.1:3000/__webpack_hmr',
       './index.js'
     ]
   },

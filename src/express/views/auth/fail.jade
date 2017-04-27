@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+  h1 Oops!
+  p Something went wrong in authenticating your account. Please try again.
+  p= msg
+  input.btn.btn-primary(type='button', onclick='window.history.back();', value='Back')
+  input.btn.btn-danger(type='button', onclick='window.close();', value='Close this window')
+
