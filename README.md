@@ -37,7 +37,7 @@ If everything is successful you may navigate to the following location in your b
       ├── express      // The node express server
       ├── webpack      // The webpack react build
       ├── auths.json   // The file that will store auth information. This will be generated for you.
-      ├── gulpfiles.js // Gulp tasks
+      ├── gulpfile.js // Gulp tasks
       └── index.js     // Entrypoint of the app
 
 ## Express app
