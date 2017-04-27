@@ -1,0 +1,7 @@
+{
+  "local": {
+    "id": "677431738992750",
+    "secret": "16e1b6c671da598dff6eeb4d6b9c396b",
+    "callback": "https://local.gogrow.com/api/data-source/auth/Facebook/callback"
+  }
+}

@@ -7,6 +7,7 @@ const fs           = require('fs');
 const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const logger       = require('morgan');
+const session      = require('express-session');
 app.set('env', process.env.NODE_ENV || 'development');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', process.env.VIEWS_ENGINE || 'jade');
@@ -15,8 +16,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+  secret: 'AzynxWMTqa y8uPb1XlWc HTuGahSImX',
+  resave: false,
+  saveUninitialized: true
+}));
 app.use(require(path.join(__dirname, 'middleware', 'res-locals')));
 app.use(require(path.join(__dirname, 'middleware', 'webpack-dev-middleware')));
+require('./utils/passport').init();
 app.use(require(path.join(__dirname, 'routes')));
 app.use((req, res, next) => {
   let err = new Error(`${req.method} ${req.url} Not Found`);
