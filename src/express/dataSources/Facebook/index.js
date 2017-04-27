@@ -63,6 +63,9 @@ module.exports = {
 };
 
 function _getData(config) {
+  if (!config.report.params.pageId && !config.report.params.selectAllPages) {
+    config.report.params.selectAllPages = true;
+  }
   if (config.report.params.pageId && !config.report.params.selectedPages) {
     config.report.params.selectedPages = [{id: config.report.params.pageId}];
   }
@@ -73,9 +76,10 @@ function _getData(config) {
         return _.find(config.report.params.selectedPages, { id: page.id });
       });
     }
+    config.report.params.selectedPages = pages;
     return BPromise.map(pages, page => {
       return new BPromise((resolve, reject) => {
-        reports[config.report.type].getData(config, page)
+        reports[config.report.type || 'insights'].getData(config, page)
         .then(results => {
           resolve(results);
         })
