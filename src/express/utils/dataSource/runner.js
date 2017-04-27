@@ -20,7 +20,7 @@ async function _run(dataSourceName, params) {
       params: authParams
     },
     report: {
-      params: _.get(params, 'reportParams', {})
+      params: _.get(params, 'reportParams')
     }
   };
   return _getData(dataSource, config);

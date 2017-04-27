@@ -63,6 +63,9 @@ module.exports = {
 };
 
 function _getData(config) {
+  if (!config.report.params.pageId && !config.report.params.selectAllPages) {
+    config.report.params.selectAllPages = true;
+  }
   if (config.report.params.pageId && !config.report.params.selectedPages) {
     config.report.params.selectedPages = [{id: config.report.params.pageId}];
   }
