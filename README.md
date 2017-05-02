@@ -2,7 +2,21 @@
 
 This repo is for local use only. It is a lite version of the app only used to build and test new datasources.
 
-## Setup
+[Nginx](./nginx/README.md)
+
+[Setup](#setup)
+
+[Running The App](#running-the-app)
+
+[Pull Requests](#pull-requests)
+
+[Adding Node Modules](#adding-node-modules)
+
+[Docker Commands](#docker-commands)
+
+[Tutorials](./tutorials/README.md)
+
+# Setup
 
 #### Hostname
 
@@ -20,7 +34,7 @@ To download the installer for mac:
 
 `git clone git@github.com:Growmies/grow-datasource-builder.git`
 
-## Running the app
+# Running the app
 
 To run this app we use docker.
 
@@ -69,21 +83,19 @@ If everything is successful you may navigate to the following location in your b
       ├── stores     // Mobx Stores
       └── index.js   // React entry point
 
-## Pulling the latest from develop
+# Pull Requests
 
-When you pull the latest code from develop make sure to rebuild the docker container. This will ensure that you have the latest node_modules.
+  When you pull the latest code from develop make sure to rebuild the docker container. This will ensure that you have the latest node_modules.
 
-`git checkout develop`
+  `git checkout develop`
 
-`git pull`
+  `git pull`
 
-`docker-compose build`
-
-## Pull Requests
+  `docker-compose build`
 
   When making changes to the code base branch off of the develop branch. Do not work directly off the develop branch.
 
-  `git checkout -b new-branch`
+  `git checkout -b your-branch`
 
   Before submitting a new pull request be sure to pull the latest from the develop branch and merge it into your branch. Resolve all merge conflicts.
 
@@ -97,7 +109,7 @@ When you pull the latest code from develop make sure to rebuild the docker conta
 
   This will ensure that your branch has the latest from develop and there will be no merge conflicts.
 
-## Adding node modules
+# Adding node modules
 
 There will come a time when you need to add in some node modules. To do this add the node module to the `package.json` file located in the root of the app.
 
@@ -105,7 +117,11 @@ You will need to rebuild the docker image. To do that run this command.
 
 `docker-compose build`
 
-## Docker commands
+# Docker commands
+
+To start running the app.
+
+`docker-compose up`
 
 To stop running the app. This is useful if you container is in a broken state. This will stop all services.
 
@@ -114,3 +130,7 @@ To stop running the app. This is useful if you container is in a broken state. T
 To remove the app from your system.
 
 `docker-compose down`
+
+Rebuild the docker image. This will add any new node_modules to the build.
+
+`docker-compose build`
