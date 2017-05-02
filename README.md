@@ -2,7 +2,7 @@
 
 This repo is for local use only. It is a lite version of the app only used to build and test new datasources.
 
-[Nginx](./nginx/README.md)
+[Nginx](./nginx)
 
 [Setup](#setup)
 
@@ -14,7 +14,7 @@ This repo is for local use only. It is a lite version of the app only used to bu
 
 [Docker Commands](#docker-commands)
 
-[Tutorials](./tutorials/README.md)
+[Tutorials](./tutorials)
 
 # Setup
 
