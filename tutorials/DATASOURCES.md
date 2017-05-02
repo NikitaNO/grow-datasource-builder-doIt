@@ -18,33 +18,34 @@ Create a folder called `TestDemo`.
 In this new folder create a file called index.js and paste this code into that file.
 
 ```
-module.exports.getData = config => {
-    return new Promise((resolve, reject) => {
-      const data = [
-        ['name', 'city', 'state'],
-        ['joe', 'provo', 'ut'],
-        ['betty', 'salt late city', 'ut']
-      ];
-      return resolve(data);
-    });
-  }
-};
-module.exports.validateAuth = config => {
-    return new Promise((resolve, reject) => {
-      //Make whatever call you need to using the authentication that was given.
-      //To check to see if those credentials are valid
-      if (validCall) {
-        return resolve();
+module.exports = {
+    getData(config) {
+        return new Promise((resolve, reject) => {
+          const data = [
+            ['name', 'city', 'state'],
+            ['joe', 'provo', 'ut'],
+            ['betty', 'salt late city', 'ut']
+          ];
+          return resolve(data);
+        });
       }
-      return reject('Authentication is invalid');
-    });
-  }
+    },
+    validateAuth(config) {
+        return new Promise((resolve, reject) => {
+          //Make whatever call you need to using the authentication that was given.
+          //To check to see if those credentials are valid
+          if (validCall) {
+            return resolve();
+          }
+          return reject('Authentication is invalid');
+        });
+    }
+    authStrategies = [
+      {
+        //Any auth strategies go here
+      }
+    ]
 };
-module.exports.authStrategies = [
-  {
-    //Any auth strategies go here
-  }
-];
 ```
 
 Restart your server if nodemon does not pick up that changes. You datasource should now be available in the front end to select. You may begin writing your datasource to accept certain parameters and return certain data so that it can be visualized in Grow.
