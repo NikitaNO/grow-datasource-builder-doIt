@@ -9,6 +9,8 @@ It must handle these objectives:
 * Write an array of objects called `authStrategies` that will act as an action list. Each action will send the client on a wizard like experience to create a set of authentication parameters, whether through OAUTH or some Basic Authentication pattern.
 * Any other functions that will retrieve data (* Or do we want everything to go through getData)
 
+## Creating a data source
+
 Navigate to the /grow-datasource-builder/src/express/dataSources folder.
 
 Create a folder called `TestDemo`.
