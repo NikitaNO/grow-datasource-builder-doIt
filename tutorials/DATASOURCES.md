@@ -51,4 +51,4 @@ Restart your server if nodemon does not pick up that changes. You datasource sho
 
 To learn more about authStrategies go to this tutorial:
 
-[Auths](./AUTHS.md)
+[Auths](./auths/README.md)
