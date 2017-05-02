@@ -1,6 +1,6 @@
 # Data Sources
 
-A datasource defines a set of api calls that will be used to retrieve data. 
+A data source defines a set of api calls that will be used to retrieve data. 
 
 It must handle these objectives:
 
