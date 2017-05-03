@@ -14,6 +14,8 @@ This repo is for local use only. It is a lite version of the app only used to bu
 
 [Docker Commands](#docker-commands)
 
+[Documentation](./docs)
+
 [Tutorials](./tutorials)
 
 # Setup
