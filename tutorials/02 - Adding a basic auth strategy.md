@@ -78,10 +78,4 @@ function _getData(config) {
 }
 ```
 
-Next:
-
-[03 - Adding an oauth auth strategy](./03 - Adding an oauth auth strategy.md)
-
-
-
 
