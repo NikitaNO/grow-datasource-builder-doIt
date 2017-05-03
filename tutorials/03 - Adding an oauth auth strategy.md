@@ -109,7 +109,3 @@ function _getData(config) {
   return request(options);
 }
 ```
-
-Next:
-
-[04 - Adding a passport auth strategy](./04 - Adding a passport auth strategy.md)

@@ -53,9 +53,3 @@ function _getData(config) {
 }
 ```
 
-Next:
-
-[05 - Using Json to table](./05 - Using Json to table.md)
-
-
-
