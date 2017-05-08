@@ -20,6 +20,7 @@ export default class ReportParams extends Component {
         validJson: true
       });
     } catch(e) {
+      this.dataSourceStore.reportParams = {};
       this.setState({
         validJson: false
       });

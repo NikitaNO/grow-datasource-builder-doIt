@@ -14,9 +14,10 @@ async function _run(dataSourceName, params) {
   if (!dataSource.getData) {
     throw new Error(`Datasource ${dataSourceName} getData is not defined`);
   }
-  const authParams = authUtil.findById(_.get(params, 'authId'));
+  const authParams = await authUtil.findById(_.get(params, 'authId'));
   const config = {
     auth: {
+      id: _.get(authParams, '_id'),
       params: _.get(authParams, 'authInfo')
     },
     report: {

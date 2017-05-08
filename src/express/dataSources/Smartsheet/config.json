@@ -1,0 +1,22 @@
+{
+  "local": {
+    "clientId": "14id2pt7hlio5ubhh3a",
+    "clientSecret": "1ewzjs77gda53w7fgf6",
+    "callback": "https://local.gogrow.com/api/data-source/auth/Smartsheet/callback"
+  },
+  "development": {
+    "clientId": "h5cb18fsjcnypexj9g",
+    "clientSecret": "aj9prggf3b5zbluj36",
+    "callback": "https://dev.gogrow.com/api/data-source/auth/Smartsheet/callback"
+  },
+  "staging": {
+    "clientId": "1giioi5fougyo90dqq4",
+    "clientSecret": "dnexb8eisi0rhreemo",
+    "callback": "https://staging.gogrow.com/api/data-source/auth/Smartsheet/callback"
+  },
+  "production": {
+    "clientId": "162jqu3x8w560e85rvu",
+    "clientSecret": "1ov09efwa8nvl3ll18a",
+    "callback": "https://app.gogrow.com/api/data-source/auth/Smartsheet/callback"
+  }
+}
