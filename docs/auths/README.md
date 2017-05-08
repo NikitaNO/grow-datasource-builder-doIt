@@ -6,6 +6,7 @@ Auths describe the authentication credentials used to retrieve data from data so
 
 [Facebook Passport Example](../../src/express/dataSources/Facebook/authStrategies.js)
 
+[Github Passport Example](../../src/express/dataSources/Github/authStrategies.js)
 
 # Initiate auth flow:
 
