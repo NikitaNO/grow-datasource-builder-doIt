@@ -2,17 +2,16 @@
 
 Auths describe the authentication credentials used to retrieve data from data sources. There are many ways a data source might have implemented their auth system. This will go over those ways on how to accomplish asking for and saving credentials. This is just a brief overview. There will also be specific examples on data sources that use each of these types.
 
-[Facebook Example](./FACEBOOK.md)
+[Delighted Basic Auth Example](../../src/express/dataSources/Delighted/authStrategies.js)
 
-[Magento Example](./MAGENTO.md)
+[Facebook Passport Example](../../src/express/dataSources/Facebook/authStrategies.js)
 
-[Amazon Seller Central Example](./AMAZONSELLERCENTRAL.md)
 
 # Initiate auth flow:
 
 `https://local.gogrow.com/api/data-source/auth/:dataSourceName`
 
-Going to this URL it will check if its a passport, view, or redirect.
+Going to this URL will check if its a passport, view, or redirect.
 
 ## Passport
 
@@ -50,11 +49,8 @@ The passport node module is great for doing all the oauth work for you. Sometime
     //Any options for passport
     options: {
       display: 'popup'
-    },
-
-    saveDataSourceAuthParamsToReq(req) {
-      //TODO - must figure out what data source uses this function
     }
+
   }
 }
 ```
@@ -127,6 +123,6 @@ This route will then call your passport module or `saveDataSourceAuthParamsToReq
 }
 ```
 
-This will build up a session of auth credential data. Then when all of the action have completed it will save the auth data in the database.
+This will build up a session of auth credential data. Then when all of the actions have completed it will save the auth data in the database.
 
 Once the callback has succeded it will then increment to the next auth strategy. This makes it useful for collecting data in steps. For instance we need to get the url before we can send it to an oauth flow.

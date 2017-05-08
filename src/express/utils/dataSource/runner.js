@@ -17,7 +17,7 @@ async function _run(dataSourceName, params) {
   const authParams = authUtil.findById(_.get(params, 'authId'));
   const config = {
     auth: {
-      params: authParams
+      params: _.get(authParams, 'authInfo')
     },
     report: {
       params: _.get(params, 'reportParams')
