@@ -1,0 +1,33 @@
+{
+  "common": {
+    "authRoute": "/api/data-source/auth/Github"
+  },
+  "local": {
+    "appName": "grow-local",
+    "clientId": "8dfba4f05bfa049bf1fd",
+    "clientSecret": "b1f4e755ec6dc60e32e44752d4c681a2087cddee",
+    "callback": "https://local.gogrow.com/api/data-source/auth/Github/callback",
+    "userAgent": "grow-local"
+  },
+  "development": {
+    "appName": "grow-dev",
+    "clientId": "942ddbf9eeaed6a16894",
+    "clientSecret": "569ebb9b2fd30df64730846372a3dd2421ece8f6",
+    "callback": "https://dev.gogrow.com/api/data-source/auth/Github/callback",
+    "userAgent": "grow-dev"
+  },
+  "staging": {
+    "appName": "grow-stage",
+    "clientId": "be07bbb1543b7c55aa70",
+    "clientSecret": "34c8c611c4a45cc2587c3084d3cec3099a0756de",
+    "callback": "https://staging.gogrow.com/api/data-source/auth/Github/callback",
+    "userAgent": "grow-stage"
+  },
+  "production": {
+    "appName": "grow",
+    "clientId": "faacdf900a94b7c7fed0",
+    "clientSecret": "7b546865aeaf896f29b68d58d6b2172b2a5d68f6",
+    "callback": "https://app.gogrow.com/api/data-source/auth/Github/callback",
+    "userAgent": "grow"
+  }
+}
