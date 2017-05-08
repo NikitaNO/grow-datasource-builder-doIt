@@ -11,6 +11,8 @@ services:
       - NODE_ENV=development
       - PORT=3000
     command: ['npm', 'run-script', 'start:dev']
+    depends_on:
+      - mongo
   nginx:
     build: ./nginx
     depends_on:
@@ -21,3 +23,11 @@ services:
       - "80:80"
       - "443:443"
     restart: always
+  mongo:
+    image: mongo
+  mongo-express:
+    image: mongo-express
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mongo

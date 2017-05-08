@@ -1,7 +1,4 @@
 {
-  "common": {
-    "authRoute": "/api/data-source/auth/Github"
-  },
   "local": {
     "appName": "grow-local",
     "clientId": "8dfba4f05bfa049bf1fd",

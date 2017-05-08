@@ -23,8 +23,9 @@ router.post('/dataSources/:dataSource/getData', async (req, res) => {
   }
 });
 
-router.get('/dataSources/:dataSource/getAuths', (req, res) => {
-  res.json(authUtil.findByDataSourceName(req.params.dataSource));
+router.get('/dataSources/:dataSource/getAuths', async (req, res) => {
+  const auths = await authUtil.findByDataSourceName(req.params.dataSource);
+  res.json(auths);
 });
 
 router.use('/api/data-source/auth', require('./auth'));

@@ -37,7 +37,7 @@ export default class AuthSelect extends Component {
     const { auths } = this.dataSourceStore;
     const authList = map(auths, auth => {
       return (
-        <option key={auth.id} value={auth.id}>
+        <option key={auth._id} value={auth._id}>
           {auth.name}
         </option>
       );
