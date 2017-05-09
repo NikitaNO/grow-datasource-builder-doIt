@@ -1,11 +1,11 @@
 import map from 'lodash/map';
+import React, { Component } from 'react';
 import autoBind from 'react-autobind';
 import styles from './styles.scss';
-import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react';
 @inject('dataSourceStore')
 @observer
-export default class DataSourceSelect extends Component {
+export default class FunctionSelect extends Component {
   constructor(props) {
     super(props);
     autoBind(this);
@@ -13,25 +13,25 @@ export default class DataSourceSelect extends Component {
   }
   handleChange(e) {
     e.preventDefault();
-    this.dataSourceStore.selectedDataSource = e.target.value;
-    this.dataSourceStore.getAuths();
-    this.dataSourceStore.getFunctions();
-    this.dataSourceStore.selectedFunction = 'getData';
+    this.dataSourceStore.selectedFunction = e.target.value;
   }
   render() {
-    const { dataSources } = this.dataSourceStore;
-    const dataSourceList = map(dataSources, dataSource => {
+    if (!this.dataSourceStore.selectedDataSource) {
+      return <div></div>;
+    }
+    const { functionList } = this.dataSourceStore;
+    const functionListOptions = map(functionList, func => {
       return (
-        <option key={dataSource} value={dataSource}>
-          {dataSource}
+        <option key={func} value={func}>
+          {func}
         </option>
       );
     });
     return (
       <div className={styles.container}>
         <select onChange={this.handleChange}>
-          <option>Select Datasource</option>
-          {dataSourceList}
+          <option>getData</option>
+          {functionListOptions}
         </select>
       </div>
     );

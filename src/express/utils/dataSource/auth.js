@@ -11,15 +11,15 @@ module.exports = {
   setAuthToInvalid: _setAuthToInvalid,
   setAuthToValid: _setAuthToValid,
   checkForAuthLock: _checkForAuthLock
-}
+};
 
 /**
  * Connects to the mongodb instance
  */
 function _connect() {
   return new BPromise((resolve, reject) => {
-		const url = 'mongodb://mongo:27017/grow';
-		MongoClient.connect(url, (err, db) => {
+    const url = 'mongodb://mongo:27017/grow';
+    MongoClient.connect(url, (err, db) => {
       if (err) {
         return reject(err);
       }
@@ -57,8 +57,8 @@ async function _findByDataSourceName(dataSourceName) {
   const db = await _connect();
   const collection = db.collection('auths');
   return new BPromise((resolve, reject) => {
-    collection.find({ 
-       dataSourceName
+    collection.find({
+      dataSourceName
     }).toArray((err, result) => {
       db.close();
       if (err) {
@@ -94,19 +94,19 @@ async function _saveAuth(config, options = {}) {
   const collection = db.collection('auths');
   return new BPromise((resolve, reject) => {
     collection.updateOne(
-      { _id: new ObjectID(config.auth.id) }, 
-      { 
-        $set: { 
-          authInfo : config.auth.params,
+      { _id: new ObjectID(config.auth.id) },
+      {
+        $set: {
+          authInfo: config.auth.params,
           locked: options.locked || false
-        } 
+        }
       }, (err, result) => {
-      db.close();
-      if (err) {
-        return reject(err);
-      }
-      return resolve(result);
-    });
+        db.close();
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      });
   });
 }
 
@@ -121,19 +121,19 @@ async function _setAuthToInvalid(config, options = {}) {
   const collection = db.collection('auths');
   return new BPromise((resolve, reject) => {
     collection.updateOne(
-      { _id: new ObjectID(config.auth.id) }, 
-      { 
-        $set: { 
+      { _id: new ObjectID(config.auth.id) },
+      {
+        $set: {
           validAuth: false,
           locked: options.locked || false
-        } 
+        }
       }, (err, result) => {
-      db.close();
-      if (err) {
-        return reject(err);
-      }
-      return resolve(result);
-    });
+        db.close();
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      });
   });
 }
 
@@ -148,18 +148,18 @@ async function _setAuthToValid(config) {
   const collection = db.collection('auths');
   return new BPromise((resolve, reject) => {
     collection.updateOne(
-      { _id: new ObjectID(config.auth.id) }, 
-      { 
-        $set: { 
+      { _id: new ObjectID(config.auth.id) },
+      {
+        $set: {
           validAuth: true,
-        } 
+        }
       }, (err, result) => {
-      db.close();
-      if (err) {
-        return reject(err);
-      }
-      return resolve(result);
-    });
+        db.close();
+        if (err) {
+          return reject(err);
+        }
+        return resolve(result);
+      });
   });
 }
 
@@ -208,6 +208,7 @@ function _waitForAuthReady(authId) {
       });
     });
     fibonacciBackoff.on('fail', err => {
+      console.error(err);
       reject('Could not obtain auth lock.');
     });
     fibonacciBackoff.backoff();

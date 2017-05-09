@@ -1,9 +1,7 @@
-'use strict';
-const authUtil = require('../utils/auth');
-
+const { auth } = require('../utils/dataSource');
 module.exports = {
-  saveAuth: authUtil.saveAuth,
-  setAuthToInvalid: authUtil.setAuthToInvalid,
-  setAuthToValid: authUtil.setAuthToValid,
-  checkForAuthLock: authUtil.checkForAuthLock
+  saveAuth: auth.saveAuth,
+  setAuthToInvalid: auth.setAuthToInvalid,
+  setAuthToValid: auth.setAuthToValid,
+  checkForAuthLock: auth.checkForAuthLock
 };

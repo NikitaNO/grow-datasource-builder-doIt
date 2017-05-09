@@ -3,7 +3,7 @@ const router      = express.Router();
 const _           = require('lodash');
 const dataSources = require('../../dataSources');
 const passport    = require('passport');
-const authUtil    = require('../../utils/auth');
+const { auth }    = require('../../utils');
 
 router.get('/error-check', 
   errorCheck);
@@ -22,7 +22,11 @@ router.post('/:dataSourceName/callback',
 
 module.exports = router;
 
-function errorCheck(req, res, next) {
+/**
+ * Check to see if there is an error. If there is it will display it.
+ * Otherwise it will close the auth window.
+ */
+function errorCheck(req, res) {
   if (!_.isUndefined(req.session.auth_error)) {
     const authError = _.cloneDeep(req.session.auth_error);
     delete req.session.auth_error;
@@ -34,6 +38,9 @@ function errorCheck(req, res, next) {
   }
 }
 
+/**
+ * This will show the current auth strategy, such as an html page, passport redirect to an oauth flow.
+ */
 function showCreateDataSourceAuth(req, res, next) {
   //Delete any previous auth errors
   delete req.session.auth_error;
@@ -110,6 +117,9 @@ function showCreateDataSourceAuth(req, res, next) {
   return res.status(404).send('The data source does not have an auth strategy');
 }
 
+/**
+ * This will get the auth params from the auth strategy.
+ */
 function getDataSourceAuthParams(req, res, next) {
   const dataSource = dataSources[req.params.dataSourceName];
   if (!dataSource) {
@@ -161,7 +171,7 @@ function getDataSourceAuthParams(req, res, next) {
           console.error('Could not retrieve auth info for: ' + req.params.dataSourceName);
           req.session.auth_error = `Could not retrieve auth info ${info ? info.message : ''}`;
           res.redirect('/api/data-source/auth/error-check');
-        } else if (req.dataSourceAuthParams instanceof Error) {
+        } else if (_.isError(req.dataSourceAuthParams)) {
           console.error('data-source.getDataSourceAuthParams: ', req.dataSourceAuthParams.message);
           req.session.auth_error = req.dataSourceAuthParams.message;
           res.redirect('/api/data-source/auth/error-check');
@@ -177,7 +187,7 @@ function getDataSourceAuthParams(req, res, next) {
           console.error('Could not retrieve auth info for: ' + req.params.dataSourceName);
           req.session.auth_error = 'Could not retrieve auth info';
           res.redirect('/api/data-source/auth/error-check');
-        } else if (req.dataSourceAuthParams instanceof Error) {
+        } else if (_.isError(req.dataSourceAuthParams)) {
           console.error('data-source.getDataSourceAuthParams: ', req.dataSourceAuthParams.message);
           req.session.auth_error = req.dataSourceAuthParams.message;
           res.redirect('/api/data-source/auth/error-check');
@@ -197,6 +207,10 @@ function getDataSourceAuthParams(req, res, next) {
   }
 }
 
+/**
+ * This will check to see if there is another auth strategy to use. If there is it will
+ * redirect back to `showCreateDataSourceAuth`
+ */
 function gotoNextAuthStrategy(req, res, next) {
   const dataSource = dataSources[req.params.dataSourceName];
   //Keep an index variable so we know what strategy to show next
@@ -215,6 +229,10 @@ function gotoNextAuthStrategy(req, res, next) {
   return showCreateDataSourceAuth(req, res, next);
 }
 
+/**
+ * Once every auth strategy is finished it will validate auth params to make
+ * sure they are correct
+ */
 function validateDataSourceAuthParams(req, res, next) {
   const dataSource = dataSources[req.params.dataSourceName];
   const config = {
@@ -231,13 +249,15 @@ function validateDataSourceAuthParams(req, res, next) {
     });
 }
 
+/**
+ * This will create the auth
+ */
 function upsertDataSourceAuthParams(req, res) {
-  const dataSource = dataSources[req.params.dataSourceName];
   const authParamsData = _.merge({
     dataSourceName: req.params.dataSourceName,
   }, req.dataSourceAuthParams);
   try {
-    authUtil.create(authParamsData);
+    auth.create(authParamsData);
     res.redirect('/api/data-source/auth/error-check');
   } catch (e) {
     req.session.auth_error = e.message;
