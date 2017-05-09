@@ -8,6 +8,7 @@ const errors   = require('../../errors');
 
 module.exports = {
   getData: _getData,
+  getFacebookPages: _getFacebookPages,
   validateAuth: _validateAuth
 };
 
@@ -75,7 +76,7 @@ function _getFacebookPages(config) {
   .then(pages => {
     const pageIds = _.chunk(_.map(pages, 'id'), 50);
     return BPromise.each(pageIds, ids => {
-      return new BPromise((resolve, reject) => {
+      return new BPromise(resolve => {
         ids = ids.join(',');
         FB.api(`/v2.5/?ids=${ids}&fields=location`, locationData => {
           if (locationData && locationData.error) {
@@ -164,9 +165,9 @@ function _getInsights(config, pages) {
  */
 function _getError(err) {
   let error = new Error('An error has occurred with the Facebook Connector.');
-  if (typeof err === 'string') {
+  if (_.isString(err)) {
     error = new Error(err);
-  } else if (typeof err.message === 'string') {
+  } else if (_.isString(err.message)) {
     error = new Error(err.message + '\nPotentially a bad pageId or you dont have \npermissions on the pageId');
   } else if (err.code === 190 || err.code === 102) {
     error = new errors.OAuthError('Authentication has failed. OAuth has expired or is invalid.');

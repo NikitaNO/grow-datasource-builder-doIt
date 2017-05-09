@@ -1,20 +1,28 @@
-const dataSources = require('../../dataSources');
 const _ = require('lodash');
-const authUtil = require('../auth');
+const j2t = require('json-to-table');
+const auth = require('./auth');
 
 module.exports = {
   run: _run
 };
 
-async function _run(dataSourceName, params) {
-  const dataSource = dataSources[dataSourceName];
-  if (!dataSource) {
-    throw new Error(`Datasource ${dataSourceName} is not defined`);
+/**
+ * params
+ * authId - The authentication to use
+ * reportParams - parameters the datasource will use to make api calls
+ */
+
+/**
+ * This will run a function on a datasource
+ * @param {object} dataSource
+ * @param {string} dataSourceName
+ * @param {object} params
+ */
+async function _run(dataSource, functionName, params) {
+  if (!_.has(dataSource, functionName)) {
+    throw new Error(`Datasource ${functionName} is not defined`);
   }
-  if (!dataSource.getData) {
-    throw new Error(`Datasource ${dataSourceName} getData is not defined`);
-  }
-  const authParams = await authUtil.findById(_.get(params, 'authId'));
+  const authParams = await auth.findById(_.get(params, 'authId'));
   const config = {
     auth: {
       id: _.get(authParams, '_id'),
@@ -24,10 +32,11 @@ async function _run(dataSourceName, params) {
       params: _.get(params, 'reportParams')
     }
   };
-  return _getData(dataSource, config);
-}
-
-async function _getData(dataSource, config) {
-  const data = await dataSource.getData(config);
+  const data = await dataSource[functionName](config);
+  if (_.isArray(data) && !_.isArray(_.head(data))) {
+    return j2t(data);
+  } else if (!_.isArray(data)) {
+    return [j2t(data)];
+  }
   return data;
 }

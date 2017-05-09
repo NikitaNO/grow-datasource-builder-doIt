@@ -11,6 +11,8 @@ class DataSourceStore {
   @observable isGettingData = false;
   @observable reportParams = {};
   @observable lastError;
+  @observable functionList = [];
+  @observable selectedFunction = 'getData';
 
   constructor() {
     api.get(`/dataSources`)
@@ -27,8 +29,8 @@ class DataSourceStore {
         authId: this.selectedAuth, 
         reportParams: this.reportParams
       }
-    }
-    api.post(`/dataSources/${this.selectedDataSource}/getData`, data)
+    };
+    api.post(`/dataSources/${this.selectedDataSource}/${this.selectedFunction}`, data)
       .then(action(res => {
         this.lastError = null;
         this.isGettingData = false;
@@ -49,6 +51,17 @@ class DataSourceStore {
       }))
       .catch(action(err => {
         this.auths = null;
+      }));
+  }
+
+  @action
+  getFunctions() {
+    api.get(`/dataSources/${this.selectedDataSource}/getFunctions`)
+      .then(action(res => {
+        this.functionList = res;
+      }))
+      .catch(action(err => {
+        this.functionList = null;
       }));
   }
 }
