@@ -124,7 +124,7 @@ To start running the app.
 
 `docker-compose up`
 
-To stop running the app. This is useful if you container is in a broken state. This will stop all services.
+To stop running the app. This is useful if your container is in a broken state. This will stop all services.
 
 `docker-compose stop`
 
