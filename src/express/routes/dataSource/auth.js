@@ -1,9 +1,10 @@
 const express     = require('express');
 const router      = express.Router();
 const _           = require('lodash');
+const path        = require('path');
 const dataSources = require('../../dataSources');
 const passport    = require('passport');
-const { auth }    = require('../../utils');
+const { auth }    = require('../../utils/dataSource');
 
 router.get('/error-check', 
   errorCheck);
@@ -92,14 +93,15 @@ function showCreateDataSourceAuth(req, res, next) {
     })(req, res, next);
   }  
   if (authStrategy.view) {
+    const viewPath = path.join(__dirname, '..', '..', 'dataSources', req.params.dataSourceName, authStrategy.view);
     if (authStrategy.beforeRender) {
       return authStrategy.beforeRender(req)
         .then(defaultAuthParams => {
-          return res.render(authStrategy.view, defaultAuthParams);
+          return res.render(viewPath, defaultAuthParams);
         })
         .catch(next);
     } else {
-      return res.render(authStrategy.view, authStrategy.defaultAuthParams);
+      return res.render(viewPath, authStrategy.defaultAuthParams);
     }
   } 
   if (authStrategy.redirect) {

@@ -1,5 +1,4 @@
 const BPromise = require('bluebird');
-//J7zGZZ6btuDmYw7oPsp59hZqLNHm9dTM
 module.exports = [
   {
 
@@ -21,9 +20,10 @@ module.exports = [
         //the req object
         req.dataSourceAuthParams = {
           authInfo: {
-            apiKey: req.body.apiKey
+            username: req.body.username,
+            password: req.body.password
           },
-          name: req.body.nickname
+          name: req.body.name
         };
 
         // When everything is good resolve the promise

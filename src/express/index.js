@@ -9,7 +9,7 @@ const logger       = require('morgan');
 const session      = require('express-session');
 app.set('env', process.env.NODE_ENV || 'development');
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', process.env.VIEWS_ENGINE || 'jade');
+app.set('view engine', process.env.VIEWS_ENGINE || 'pug');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 app.use(bodyParser.json());

@@ -13,8 +13,7 @@ gulp.task('start:dev', done => {
     ext: 'js json',
     nodeArgs: ['--debug=0.0.0.0:9229'],
     watch: path.join(__dirname, 'express'),
-    legacyWatch: true,
-    delay: 2000
+    legacyWatch: true
   })
   .on('start', () => {
     // to avoid nodemon being started multiple times
