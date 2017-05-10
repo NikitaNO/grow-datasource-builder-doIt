@@ -5,6 +5,7 @@ module.exports = {
     'mocha': true,
     'jquery': true
   },
+  'parser': 'babel-eslint',
   'parserOptions': {
     'sourceType': 'module',
     'ecmaVersion': 8,
@@ -19,7 +20,7 @@ module.exports = {
   ],
   'extends': [
     'eslint:recommended',
-	'plugin:react/recommended',
+	  'plugin:react/recommended',
     'plugin:lodash/canonical'
   ],
   'globals': {
