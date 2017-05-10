@@ -2,6 +2,14 @@
 
 Auths describe the authentication credentials used to retrieve data from data sources. There are many ways a data source might have implemented their auth system. This will go over those ways on how to accomplish asking for and saving credentials. This is just a brief overview. There will also be specific examples on data sources that use each of these types.
 
+Auth object are stored in a mongo docker instance. You are able to bring up a mongo ui by going to:
+
+`localhost:8081`
+
+This will bring up the Mongo Express container. You can view all the auths you have created by clicking on the `grow` database and the `auths` collection. From there you are able to edit any auth information if you need to.
+
+## Examples
+
 [Delighted Basic Auth Example](../../src/express/dataSources/Delighted/authStrategies.js)
 
 [Facebook Passport Example](../../src/express/dataSources/Facebook/authStrategies.js)

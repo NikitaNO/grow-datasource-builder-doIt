@@ -1,0 +1,6 @@
+h1 {{DATASOURCE_NAME}}
+form#LoginForm(method='post', action='/api/data-source/auth/{{DATASOURCE_NAME}}/callback')
+  input(type='text', name='name', placeholder='Auth Name')
+  input(type='text', name='username', placeholder='Username')
+  input(type='password', name='password', placeholder='password')
+  input(type='submit', value='Submit')
