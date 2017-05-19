@@ -1,3 +1,11 @@
+For add additional parameters in textarea field in the format below
+ {
+   "Date_Start": "2000-01-15",
+   "Date_End": "2008-05-15",
+  "Lead_Type": "Lead_Type"
+}
+
+
 # Grow Datasource Builder
 
 This repo is for local use only. It is a lite version of the app only used to build and test new datasources.
