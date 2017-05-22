@@ -4,37 +4,23 @@ const _ = require('lodash');
 const j2t = require('json-to-table');
 const url = 'https://leads.irelo.io/apiJSON.php';
 
-//Filter Helper for correct data render
+//Check response for erorrs
 
-dataFilter = (object, path) =>{
-  const simpleObject = {};
-  for (const prop in object ){
-    if (!object.hasOwnProperty(prop)){
-      continue;
-    }
-    if (typeof(object[prop]) == 'object'){
-      continue;
-    }
-    if (typeof(object[prop]) == 'function'){
-      continue;
-    }
-    simpleObject[prop] = object[prop];
-  }
-  const data = JSON.parse(simpleObject.body);
-
+dataFilter = (object, path) => {
+  const data = object.body;
   if (data.response.errors) {
-    return j2t(_.get(data, 'response'));
+    const errors = data.response.errors.join(' ');
+    throw new Error(errors)
   }
-
-  return j2t(_.get(data, path)); // returns cleaned up object
+  return j2t(_.get(data, path));
 };
 
-// Helper for building body for queries
+// Body building helper for queries
 
-buildBody = (config, action) =>{
+buildBody = (config, action) => {
   const apiKey = _.get(config, 'auth.params.apiKey');
   const params = config.report.params;
-  let body = {
+  const body = {
     Request: {
       Key: apiKey,
       API_Action: action,
@@ -42,16 +28,23 @@ buildBody = (config, action) =>{
     }
   };
 
-  if (params) {
-    body.Request = _.assignIn({}, body.Request, params)
-  }
+  body.Request = _.assignIn({}, body.Request, params);
 
   return {
-    url: url,
+    url,
+    body,
     method: 'POST',
-    body: JSON.stringify(body)
+    json: true
   }
 };
+
+// For add additional parameters in textarea field in the format below
+// {
+//   "Date_Start": "2000-01-15",
+//   "Date_End": "2008-05-15",
+//   "Lead_Type": "Lead_Type"
+// }
+
 
 _getFilterSetsAll = (config) => {
   const path = 'response.filter_sets.set';
@@ -62,14 +55,6 @@ _getFilterSetsAll = (config) => {
       return dataFilter(res, path);
     });
 };
-
-// For add additional parameters in textarea field in the format below
-// {
-//   "Date_Start": "2000-01-15",
-//   "Date_End": "2008-05-15",
-//   "Lead_Type": "Lead_Type"
-// }
-
 
 _getNumberOfLeads = (config) => {
   const path = 'response';
