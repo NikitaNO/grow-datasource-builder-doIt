@@ -23,7 +23,6 @@ dataFilter = (object, path) =>{
   const data = JSON.parse(simpleObject.body);
 
   if (data.response.errors) {
-    console.log(data.response.errors);
     return j2t(_.get(data, 'response'));
   }
 
@@ -71,15 +70,6 @@ _getFilterSetsAll = (config) => {
 //   "Lead_Type": "Lead_Type"
 // }
 
-_getNumberOfLeads = (config) => {
-  const path = 'response';
-  const options = buildBody(config, 'getNumberOfLeads');
-
-  return request(options)
-    .then(res => {
-      return dataFilter(res, path);
-    });
-};
 
 _getNumberOfLeads = (config) => {
   const path = 'response';
